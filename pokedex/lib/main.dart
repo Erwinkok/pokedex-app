@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/views/home.dart';
+import 'package:provider/provider.dart';
+
+import 'business_logic/pokemon_store.dart';
+import 'presentation/views/home_page/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,16 +11,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<PokemonStore>(create: (_) => PokemonStore()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: HomePage(),
       ),
-      home: Home()
     );
   }
 }
-
-
